@@ -55,7 +55,7 @@ impl TodoList {
     }
 
     fn clean(&mut self) {
-        self.items.retain(|i| !i.status);
+        self.items.retain_mut(|i| !i.status);
     }
 
     fn write(&self) {
@@ -77,7 +77,7 @@ impl TodoList {
             .apply_modifier(UTF8_SOLID_INNER_BORDERS)
             .set_content_arrangement(ContentArrangement::Dynamic);
 
-        table.set_header(vec!["#", "Done?", "Description"]);
+        table.set_header(vec!["#", "☐", "Description"]);
 
         for (index, item) in self.items.iter().enumerate() {
             let idx = Cell::new(index.to_string()).fg(Color::Yellow);
@@ -87,7 +87,7 @@ impl TodoList {
                 false => Cell::new(item.description.to_string()),
             };
             let status = match item.status {
-                true => Cell::new("🗹").fg(Color::Green),
+                true => Cell::new("☑").fg(Color::Green),
                 false => Cell::new("☐"),
             };
 
@@ -110,13 +110,13 @@ fn main() {
 
     if args.clean {
         list.clean();
-        list.write();
     } else if args.add.is_some() {
         list.add(&args.add.unwrap());
-        list.write();
     } else if args.finish.is_some() {
         list.finish(args.finish.unwrap());
     }
 
+    list.write();
+    // println!("{}", serde_json::to_string_pretty(&list).unwrap());
     list.print();
 }
