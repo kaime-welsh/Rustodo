@@ -19,6 +19,10 @@ struct Args {
     /// mark a todo as complete
     finish: Option<usize>,
 
+    #[argh(option, short = 'r')]
+    /// remove an item from the list
+    remove: Option<usize>,
+
     #[argh(switch, short = 'c')]
     /// clean finished todo's from list
     clean: bool,
@@ -52,6 +56,10 @@ impl TodoList {
 
     fn finish(&mut self, index: usize) {
         self.items[index].status = true;
+    }
+
+    fn remove(&mut self, index: usize) {
+        self.items.remove(index);
     }
 
     fn clean(&mut self) {
@@ -114,6 +122,8 @@ fn main() {
         list.add(&args.add.unwrap());
     } else if args.finish.is_some() {
         list.finish(args.finish.unwrap());
+    } else if args.remove.is_some() {
+        list.remove(args.remove.unwrap());
     }
 
     list.write();
