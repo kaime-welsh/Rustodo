@@ -1,0 +1,13 @@
+{
+  "path":"test.json",
+  "lists": [
+    {
+      "name":"Test List",
+      "items":[{"description":"Test Item 1","status":true},{"description":"Test Item 2","status":false}]
+    },
+    {
+      "name": "Second List",
+      "items": [{"description":"Test Item 1", "status":true}]
+    }
+  ]
+}
