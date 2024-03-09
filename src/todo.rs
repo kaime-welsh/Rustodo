@@ -72,6 +72,7 @@ impl TodoList {
         table
             .load_preset(UTF8_FULL)
             .apply_modifier(UTF8_SOLID_INNER_BORDERS)
+            .set_width(80)
             .set_content_arrangement(ContentArrangement::Dynamic);
 
         table.set_header(vec!["#", "☐", "Description"]);
